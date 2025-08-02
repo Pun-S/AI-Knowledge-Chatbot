@@ -1,0 +1,19 @@
+version: '3.8'
+services:
+  backend:
+    build: ./backend
+    container_name: chatbot-backend
+    ports:
+      - "8000:8000"
+    environment:
+      - HF_API_KEY=${HF_API_KEY}
+    restart: unless-stopped
+
+  frontend:
+    build: ./frontend-angular
+    container_name: chatbot-frontend
+    ports:
+      - "4200:4200"
+    depends_on:
+      - backend
+    restart: unless-stopped

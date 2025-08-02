@@ -1,0 +1,33 @@
+<div class="chat-container">
+  <!-- File Upload -->
+  <div class="upload-section">
+    <label class="file-label">
+      📄 Upload Document
+      <input type="file" (change)="onFileSelected($event)" hidden />
+    </label>
+    <span *ngIf="fileUploaded" class="upload-status"
+      >✅ {{ uploadedFileName }}</span
+    >
+    <button class="reset-btn" (click)="resetChat()">♻ Reset Chat</button>
+  </div>
+
+  <!-- Chat Messages -->
+  <div class="chat-window" #chatWindow>
+    <div *ngFor="let msg of messages" class="message" [ngClass]="msg.user">
+      <div class="message-bubble">
+        {{ msg.text }}
+      </div>
+    </div>
+    <div *ngIf="loading" class="loading">Thinking...</div>
+  </div>
+
+  <!-- Input Box -->
+  <div class="input-section">
+    <input
+      [(ngModel)]="query"
+      (keydown.enter)="sendMessage()"
+      placeholder="Ask something about the document..."
+    />
+    <button (click)="sendMessage()">Send ➤</button>
+  </div>
+</div>
